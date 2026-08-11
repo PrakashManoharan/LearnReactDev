@@ -1,63 +1,32 @@
-import { getImageUrl } from "./utils.js";
-
-function Profile({
-  name,
-  imageId,
-  profession,
-  awards,
-  discovery,
-  imageSize = 70,
-}) {
+function Card({ children, title }) {
   return (
-    <section className="profile">
-      <h2>{name}</h2>
-      <img
-        className="avatar"
-        src={getImageUrl(imageId)}
-        alt={name}
-        width={imageSize}
-        height={imageSize}
-      />
-      <ul>
-        <li>
-          <b>Profession:</b>
-          {profession}
-        </li>
-        <li>
-          <b>Awards: {awards.length}</b>({awards.join(", ")})
-        </li>
-        <li>
-          <b>Discovered: </b>
-          {discovery}
-        </li>
-      </ul>
-    </section>
+    <div className="card">
+      <div className="card-content">
+        <h1>{title}</h1>
+        {children}
+      </div>
+    </div>
   );
 }
 
-export default function Gallery() {
+export default function Profile() {
   return (
     <div>
-      <h1>Notable Scientists</h1>
-      <Profile
-        imageId="szV5sdG"
-        name="Maria Skłodowska-Curie"
-        profession="physicist and chemist"
-        discovery="polonium (chemical element)"
-        awards={[
-          "Nobel Prize in Physics",
-          "Nobel Prize in Chemistry",
-          "Davy Medal",
-          "Matteucci Medal",
-        ]}
-      />
-      <Profile
-        imageId="YfeOqp2"
-        name="Katsuko Saruhashi"
-        profession="geochemist"
-        discovery="a method for measuring carbon dioxide in seawater"
-        awards={["Miyake Prize for geochemistry", "Tanaka Prize"]}
-      />
+      <Card title="Photo">
+        <img
+          className="avatar"
+          src="https://react.dev/images/docs/scientists/OKS67lhm.jpg"
+          alt="Aklilu Lemma"
+          width={70}
+          height={70}
+        />
+      </Card>
+      <Card title="About">
+        <p>
+          Aklilu Lemma was a distinguished Ethiopian scientist who discovered a
+          natural treatment to schistosomiasis.
+        </p>
+      </Card>
     </div>
   );
 }
