@@ -1,76 +1,133 @@
-//Logical AND operator (&&) 
-//Another common shortcut you’ll encounter is the JavaScript logical AND (&&) operator. 
-// Inside React components, it often comes up when you want to render some JSX when the condition
-// is true, or render nothing otherwise. With &&, you could conditionally render 
-// the checkmark only if isPacked is true:
-// return (
-//   <li className="item">
-//     {name} {isPacked && '✅'}
-//   </li>
-// );
+// 1. Show an icon for incomplete items with ? :
+
 
 // function Item({ name, isPacked }) {
 //   return (
 //     <li className="item">
-//       {name} {isPacked && '✅'}
+//       {name} ?{isPacked && '✅'} : {!isPacked && '❌'}
 //     </li>
 //   );
 // }
 
-// Like before, this works not only for text, but for arbitrary JSX too:
+// export default function PackingList() {
+//   return (
+//     <section>
+//       <h1>Sally Ride's Packing List</h1>
+//       <ul>
+//         <Item
+//           isPacked={true}
+//           name="Space suit"
+//         />
+//         <Item
+//           isPacked={true}
+//           name="Helmet with a golden leaf"
+//         />
+//         <Item
+//           isPacked={false}
+//           name="Photo of Tam"
+//         />
+//       </ul>
+//     </section>
+//   );
+// }
 
-// function Item({ name, isPacked }) {
+
+// 2. Show an icon for incomplete items with && :
+
+// function Item({ name, importance }) {
 //   return (
 //     <li className="item">
-//       {isPacked ? (
-//         <del>
-//           {name + ' ✅'}
-//         </del>
-//       ) : (
-//         name
-//       )}
+//        {name} 
+//        {importance > 0 && ""}
+//        {importance > 0 && <i>(Importance: {importance})</i>}
 //     </li>
 //   );
 // }
 
+// export default function PackingList() {
+//   return (
+//     <section>
+//       <h1>Sally Ride's Packing List</h1>
+//       <ul>
+//         <Item
+//           importance={9}
+//           name="Space suit"
+//         />
+//         <Item
+//           importance={0}
+//           name="Helmet with a golden leaf"
+//         />
+//         <Item
+//           importance={6}
+//           name="Photo of Tam"
+//         />
+//       </ul>
+//     </section>
+//   );
+// }
 
-// Curly braces open the “window into JavaScript”.
-// Embed the variable with curly braces in the returned JSX tree, 
-// nesting the previously calculated expression inside of JSX:
+//Refactor a series of ? : to if and variables 
 
-{/* <li className="item">
-  {itemContent}
-</li> */}
-function Item({ name, isPacked }) {
-  let itemContent = name;
-  if (isPacked) {
-    itemContent = name + " ✅";
+//function Drink({ name }) {
+//   return (
+//     <section>
+//       <h1>{name}</h1>
+//       <dl>
+//         <dt>Part of plant</dt>
+//         <dd>{name === 'tea' ? 'leaf' : 'bean'}</dd>
+//         <dt>Caffeine content</dt>
+//         <dd>{name === 'tea' ? '15–70 mg/cup' : '80–185 mg/cup'}</dd>
+//         <dt>Age</dt>
+//         <dd>{name === 'tea' ? '4,000+ years' : '1,000+ years'}</dd>
+//       </dl>
+//     </section>
+//   );
+// }
+
+// export default function DrinkList() {
+//   return (
+//     <div>
+//       <Drink name="tea" />
+//       <Drink name="coffee" />
+//     </div>
+//   );
+// }
+
+
+
+function Drink({ name }) {
+  let part, caffeine, age;
+  if (name === 'tea') {
+    part = 'leaf';
+    caffeine = '15–70 mg/cup';
+    age = '4,000+ years';
+  } else {
+    part = 'bean';
+    caffeine = '80–185 mg/cup';
+    age = '1,000+ years';
   }
-  return (
-    <li className="item">
-      {itemContent}
-    </li>
-  );
-}
 
-export default function PackingList() {
   return (
     <section>
-      <h1>Sally Ride's Packing List</h1>
-      <ul>
-        <Item
-          isPacked={true}
-          name="Space suit"
-        />
-        <Item
-          isPacked={true}
-          name="Helmet with a golden leaf"
-        />
-        <Item
-          isPacked={false}
-          name="Photo of Tam"
-        />
-      </ul>
+      <h1>{name}</h1>
+      <dl>
+        <dt>Part of plant</dt>
+        <dd>{part}</dd>
+        <dt>Caffeine content</dt>
+        <dd>{caffeine}</dd>
+        <dt>Age</dt>
+        <dd>{age}</dd>
+      </dl>
     </section>
   );
 }
+
+export default function DrinkList() {
+  return (
+    <div>
+      <Drink name="tea" />
+      <Drink name="coffee" />
+    </div>
+  );
+}
+
